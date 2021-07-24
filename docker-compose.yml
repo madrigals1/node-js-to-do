@@ -8,7 +8,20 @@ services:
   ports:
     - "4200:4200"
   depends_on:
-    - mongodb
+    - mongoDataBase
+  networks: 
+    - megasaab-docker-network
  
-  mongoDataBase:
-    image: 'mongo'
+ mongoDataBase:
+  image: 'mongo'
+  volumes:
+    - mongodb_api:/data/db
+  networks: 
+    - megasaab-docker-network
+
+volumes:
+ mongodb_api:
+
+networks: 
+  megasaab-docker-network:
+    driver: bridge

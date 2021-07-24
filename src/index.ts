@@ -8,7 +8,10 @@ dotenv.config();
 
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT as string, 10) : 4200;
 
-mongoose.connect('mongodb://mongoDataBase:27017/toDoList')
+mongoose.connect('mongodb://mongoDataBase:27017/toDoList', {
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+})
 .then(() => {console.log('db connected')})
 .catch(() => {console.log('error in db connection!')})
 
@@ -20,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/test', (req: Request, res: Response) => {
-    res.send('<h1 style="text-align:center;">API IS WORKING ⚡</h1>');
+    res.send('<h1 style="text-align:center;">API started correctly⚡</h1>');
   });
 
 app.listen(PORT, () => console.log(`Running on ${PORT} ⚡`));
