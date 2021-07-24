@@ -6,7 +6,7 @@ services:
   command: npm run start
   restart: unless-stopped
   ports:
-    - "4200:4200"
+    - "${PORT}:${PORT}"
   depends_on:
     - mongoDataBase
   networks: 

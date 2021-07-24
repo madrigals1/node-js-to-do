@@ -3,10 +3,11 @@ import mongoose, { CallbackError, Connection, mongo } from 'mongoose';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import { router } from './router/route';
 
 dotenv.config();
 
-const PORT: number = process.env.PORT ? parseInt(process.env.PORT as string, 10) : 4200;
+const PORT: number = Number(process.env.PORT);
 
 mongoose.connect('mongodb://mongoDataBase:27017/toDoList', {
   useUnifiedTopology: true,
@@ -21,10 +22,8 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/api', router);
 
-app.get('/test', (req: Request, res: Response) => {
-    res.send('<h1 style="text-align:center;">API started correctly⚡</h1>');
-  });
 
 app.listen(PORT, () => console.log(`Running on ${PORT} ⚡`));
 
