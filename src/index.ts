@@ -13,8 +13,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('<h1>API IS WORKING</h1>');
+app.get('/test', (req: Request, res: Response) => {
+    res.send('<h1 style="text-align:center;">API IS WORKING ⚡</h1>');
   });
 
   app.listen(PORT, () => console.log(`Running on ${PORT} ⚡`));
