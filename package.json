@@ -1,0 +1,19 @@
+{
+  "name": "to-do-typescript",
+  "version": "1.0.0",
+  "description": "to do list with auth",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/megasaab/node-js-to-do.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/megasaab/node-js-to-do/issues"
+  },
+  "homepage": "https://github.com/megasaab/node-js-to-do#readme"
+}
