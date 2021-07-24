@@ -7,25 +7,8 @@ services:
   restart: unless-stopped
   ports:
     - "4200:4200"
-  environment:
-    - PORT=4200
-    - MONGO_URL=mongodb://api_db:27017/api
   depends_on:
-    - api_db
-  networks: 
-    - megasaab-docker-network
-
- api_db:
-  image: mongo:latest
-  container_name: api_mongo
-  volumes:
-    - mongodb_api:/data/db
-  networks: 
-    - megasaab-docker-network
-
-volumes:
-  mongodb_api:
-
-networks: 
-  megasaab-docker-network:
-    driver: bridge
+    - mongodb
+ 
+  mongoDataBase:
+    image: 'mongo'
