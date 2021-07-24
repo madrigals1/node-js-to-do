@@ -7,7 +7,7 @@ export interface IToken {
 export interface ITokenDoc extends Document, IToken {}
 
 const TokenSchema = new Schema({
-    refreshToken: {type: Schema.Types.ObjectId, ref: 'User'}
+    refreshToken: {type: String, ref: 'User'}
 });
 
 // Export the model and return your User interface

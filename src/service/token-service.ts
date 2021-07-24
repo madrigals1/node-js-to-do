@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import { ObjectId } from 'mongoose';
 import {ITokenDoc, TokenModel, IToken } from '../models/token-model';
 import { InputUser, UserModel } from '../models/user-model';
 
@@ -10,7 +9,7 @@ export interface Tokens {
 
 class TokenService {
 
-    async generateTokens(payload: InputUser): Promise<Tokens> {
+    async generateTokens(payload: any): Promise<Tokens> {
         const accessToken: string = jwt.sign(payload, process.env.JWT_ACCESS_SECRET || 'SECRET', {expiresIn: '30m'});
         const refreshToken: string = jwt.sign(payload, process.env.JWT_REFRESH_SECRET || 'REFRESH_SECRET', {expiresIn: '30d'})
         

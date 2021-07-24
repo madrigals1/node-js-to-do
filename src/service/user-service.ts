@@ -10,10 +10,9 @@ class UserService {
         };
         const hashPassword: string = await bcrypr.hash(password, 3);
         const user: any = await UserModel.create({email, password: hashPassword});
-        const userDto: InputUser = {
-            id: user._id,
+        const userDto = {
             email: user.email,
-            password: user.password
+            id: user._id
         };
         const tokens = await tokenService.generateTokens({...userDto});
         await tokenService.saveToken(userDto.id, tokens.refreshToken);
