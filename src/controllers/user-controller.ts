@@ -1,4 +1,5 @@
 import { Response, Request, NextFunction } from "express";
+import userModel from "../models/user-model";
 import { userService } from "../service/user-service";
 
 class UserController {
@@ -9,7 +10,7 @@ class UserController {
             response.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
             return response.json(userData);
         } catch (error) {
-            console.log(error);
+            next(error);
         };
     };
 
@@ -39,9 +40,10 @@ class UserController {
 
     async getUsers(req: Request, response: Response, next: NextFunction) {
         try {
-            response.json([1,2,3])
+           const users: any = await userModel.find();
+           return response.json(users)
         } catch (error) {
-            
+            next(error);
         }
     };
 }

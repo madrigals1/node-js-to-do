@@ -48,3 +48,5 @@ build/Release
 node_modules
 #Dist
 dist/
+
+.env

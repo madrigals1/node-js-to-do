@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { router } from './router/route';
+import { middlewarePrepareException } from './middlewares/error-middleware';
 
 dotenv.config();
 
@@ -22,7 +23,9 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api', router)
+app.use('/api', router);
+app.use(middlewarePrepareException);
+
 
 
 app.listen(PORT, () => console.log(`Running on ${PORT} ⚡`));

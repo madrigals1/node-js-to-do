@@ -1,12 +1,13 @@
 import  UserModel , { InputUser } from '../models/user-model';
 import bcrypr from 'bcrypt';
 import { tokenService } from './token-service';
+import { ApiError } from '../exceptions/api-error';
 
 class UserService {
     async registration(email: string, password: string): Promise<any> {
         const candidate: any = await UserModel.findOne({email});
         if (candidate) {
-            throw new Error(`User with  email ${email} already exist`);
+            throw new (ApiError.BadRequest as any)(`User with  email ${email} already exist`);
         };
         const hashPassword: string = await bcrypr.hash(password, 3);
         const user: any = await UserModel.create({email, password: hashPassword});
@@ -19,7 +20,7 @@ class UserService {
 
         return {
             ...tokens,
-            user: userDto
+            user: userDto,
         };
     };
 };
