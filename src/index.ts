@@ -15,7 +15,7 @@ mongoose.connect('mongodb://mongoDataBase:27017/toDoList', {
   useNewUrlParser: true
 })
 .then(() => {console.log('db connected')})
-.catch(() => {console.log('error in db connection!')})
+.catch(() => {console.log('error in db connection!')});
 
 const app: Express = express();
 

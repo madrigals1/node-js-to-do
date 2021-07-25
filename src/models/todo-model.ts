@@ -1,10 +1,11 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface ITodo {
-    refreshToken: string;
+    name: {type: String},
+    isDone: {type: Boolean}
 };
 
-export interface ITodoDoc extends Document, ITodo {}
+export interface ITodoDoc extends Document, ITodo {};
 
 const ToDoSchema = new Schema({
     name: {type: String},
