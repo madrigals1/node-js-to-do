@@ -22,9 +22,12 @@ class UserController {
 
     async login(req: Request, response: Response, next: NextFunction) {
         try {
-            
+            const {email, password} = req.body;
+            const userData = await userService.login(email ,password)
+            response.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+            return response.json(userData);
         } catch (error) {
-            
+            next(error)
         }
     };
 

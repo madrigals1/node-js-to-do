@@ -23,6 +23,25 @@ class UserService {
             user: userDto,
         };
     };
+
+    async login(email: string, password: string) {
+        const user = await UserModel.findOne({email});
+        if (!user) {
+            throw ApiError.BadRequest('User with this email not found');
+        };
+        const isEqualPassword = await bcrypr.compare(password, user.password);
+        if (!isEqualPassword) {
+            throw ApiError.BadRequest('Incorrect password');
+        };
+        const userDto = {
+            email: user.email,
+            id: user._id
+        };
+        const tokens = await tokenService.generateTokens({...userDto});
+
+        await tokenService.saveToken(userDto.id, tokens.refreshToken);
+        return {...tokens, user: userDto};
+    };
 };
 
 export const userService = new UserService();
