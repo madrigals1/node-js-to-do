@@ -1,3 +1,4 @@
+import { AnyCnameRecord } from 'dns';
 import jwt from 'jsonwebtoken';
 import {ITokenDoc, TokenModel, IToken } from '../models/token-model';
 import { InputUser, UserModel } from '../models/user-model';
@@ -30,6 +31,30 @@ class TokenService {
 
         return await TokenModel.create({user: userId, refreshToken});
     };
+
+    async removeToken(refreshToken :string): Promise<any> {
+        return await TokenModel.deleteOne({refreshToken});
+    };
+
+    async findToken(refreshToken :string): Promise<any> {
+        return await TokenModel.findOne({refreshToken});
+    };
+
+    validateAccessToken(token: any): any {
+        try {
+            return jwt.verify(token, process.env.JWT_ACCESS_SECRET || 'secret-megasaab')
+        } catch (error) {
+            return null;
+        }
+    }
+
+    validateRefreshToken(token: any): any {
+        try {
+            return jwt.verify(token, process.env.JWT_REFRESH_SECRET || 'refresh-mega')
+        } catch (error) {
+            return null;
+        }
+    }
 
 };
 
