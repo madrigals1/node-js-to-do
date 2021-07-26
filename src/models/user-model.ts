@@ -14,7 +14,6 @@ export interface UserModel extends Document {
 const UserSchema: Schema = new Schema({
     email: {type: String, unique: true, required: true},
     password: {type: String, required: true},
-    todos: {type: Object, ref: 'Todo'}
 });
 
 // Export the model and return your User interface
