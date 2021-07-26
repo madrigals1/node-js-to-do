@@ -9,7 +9,7 @@ export class ApiError extends Error {
     };
 
     static UnauthorizedError(): any {
-        return new (ApiError as any)(404, 'User not found')
+        return new (ApiError as any)(404, 'User not authorized')
     };
 
     static BadRequest(message: string, errors?: any[]): any {
