@@ -11,7 +11,7 @@ export interface Tokens {
 class TokenService {
 
     async generateTokens(payload: any): Promise<Tokens> {
-        const accessToken: string = jwt.sign(payload, process.env.JWT_ACCESS_SECRET || 'SECRET', {expiresIn: '30m'});
+        const accessToken: string = jwt.sign(payload, process.env.JWT_ACCESS_SECRET || 'SECRET', {expiresIn: '1d'});
         const refreshToken: string = jwt.sign(payload, process.env.JWT_REFRESH_SECRET || 'REFRESH_SECRET', {expiresIn: '30d'})
         
         return new Promise((resolve, reject) => {

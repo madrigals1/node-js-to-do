@@ -25,13 +25,23 @@ class ToDoService {
         }
     }
 
+    async deleteTodos(toDoId: any) {
+        try {
+            await ToDoModel.findByIdAndDelete(toDoId);
+        } catch(error) {
+            throw ApiError.BadRequest('Error when deleted todo')
+        }
+       
+        
+    };
+
     // get todo from database
     async getToDos(): Promise<any> {
         try {
             const toDoList: any = await ToDoModel.find();
             return toDoList;
         } catch (error) {
-            throw ApiError.BadRequest('erro when fet todo list');
+            throw ApiError.BadRequest('erro when get todo list');
         }
     
     }

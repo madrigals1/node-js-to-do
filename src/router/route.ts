@@ -20,3 +20,4 @@ router.get('/users',authMiddleWare, userController.getUsers);
 //toDoList
 router.post('/create-todo', authMiddleWare, toDotController.updateUserWithTodos);
 router.get('/to-do-list', authMiddleWare, toDotController.getToDo);
+router.post('/delete-todo',authMiddleWare,toDotController.deleteToDoById)
