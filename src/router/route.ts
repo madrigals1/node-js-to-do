@@ -18,5 +18,5 @@ router.get('/refresh', userController.refresh);
 router.get('/users',authMiddleWare, userController.getUsers);
 
 //toDoList
-router.post('/create-todo', authMiddleWare, toDotController.createToDo);
+router.post('/create-todo', authMiddleWare, toDotController.updateUserWithTodos);
 router.get('/to-do-list', authMiddleWare, toDotController.getToDo);

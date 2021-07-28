@@ -7,10 +7,9 @@ export interface ITodo {
 
 export interface ITodoDoc extends Document, ITodo {};
 
-const ToDoSchema = new Schema({
+export const ToDoSchema = new Schema({
     name: {type: String},
     isDone: {type: Boolean},
-    userId: {type: String}
 },{ timestamps: { createdAt: 'created_at' } });
 
 // Export the model and return your User interface
