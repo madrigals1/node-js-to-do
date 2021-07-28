@@ -1,38 +1,29 @@
 import { Response, Request, NextFunction } from "express";
-import { runInNewContext } from "vm";
 import { ToDoModel } from "../models/todo-model";
-import userModel from "../models/user-model";
 import { toDoSerivce } from "../service/todo-service";
-import { tokenService } from "../service/token-service";
 
 class ToDoController {
   
-    async getToDo(req: Request | any, response: Response, next: NextFunction) {
+    async getToDo(req: Request | any, response: Response, next: NextFunction): Promise<any> {
+        const todo = await toDoSerivce.getToDos();
         try {
-            const toDoList: any = await ToDoModel.find();
-           return response.json(toDoList);
+            const todo = await toDoSerivce.getToDos();
+            return response.json(todo);
         } catch (error) {
             next(error)
         }
     };
+    
 
-   async updateUserWithTodos(req: Request | any, response: Response, next: NextFunction) {
+   async updateUserWithTodos(req: Request | any, response: Response, next: NextFunction): Promise<any> {
        try {
-        const todo = req.body; 
-        const newTodo = await ToDoModel.create(todo);
-        const user = await userModel.findByIdAndUpdate(
-             req.user.id,
-             {
-                 $push: {
-                     todos: newTodo
-                 }
-             },
-             {
-                 new: true,
-                 useFindAndModify: false
-             }
-         )
-        return response.json(user);
+            const todo = req.body; 
+            const newToDo = await ToDoModel.create(todo);
+            const res: any = await toDoSerivce.createToDos(req.user.id, newToDo);
+            return response.json({
+                email: res.email,
+                todos: res.todos
+            });
        } catch(err) {
          next(err);
        }
