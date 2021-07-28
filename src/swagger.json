@@ -1,0 +1,121 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Node.js TODO application API",
+      "description": "Node.js TODO application API",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+        {
+          "name": "Users",
+          "description": "API for users in the system"
+        }
+      ],
+      "schemes": [
+        "http"
+      ],
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                  ],
+                "description": "Create new user in system",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User that we want to create",
+                        "schema": {
+                          "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "New user is created",
+                      "schema": {
+                        "$ref": "#/definitions/CreateUserResponse"
+                      }
+                    }
+                  }
+            }
+        }
+      },
+      "definitions": {
+        "User": {
+          "required": [
+            "email",
+            "_id"
+          ],
+          "properties": {
+            "_id": {
+              "type": "string",
+              "uniqueItems": true
+            },
+            "email": {
+              "type": "string",
+              "uniqueItems": true
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        },
+        "Todo": {
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                  },
+                  "name": {
+                    "type": "string",
+                    "uniqueItems": false
+                  },
+                  "isDone": {
+                    "type": "boolean"
+                  }
+            }
+        },
+        "CreateUserResponse": {
+            "properties": {
+                "accessToken": {
+                    "type": "string",
+                    "uniqueItems": true
+                  },
+                  "refreshToken": {
+                    "type": "string",
+                    "uniqueItems": false
+                  },
+                  "user": {
+                    "type": "array",
+                    "$ref": "#/definitions/User"
+                  }
+            }
+        },
+        "Users": {
+          "type": "array",
+          "$ref": "#/definitions/User"
+        },
+        "Todos": {
+            "type": "array",
+            "$ref": "#/definitions/Todo"
+          }
+    }
+    
+}

@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { router } from './router/route';
 import { middlewarePrepareException } from './middlewares/error-middleware';
+import swaggerUi from 'swagger-ui-express';
+import * as swaggerDocument from './swagger.json';
 
 dotenv.config();
 
@@ -27,6 +29,7 @@ app.use(helmet());
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api', router);
 app.use(middlewarePrepareException);
 
