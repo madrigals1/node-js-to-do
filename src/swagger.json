@@ -15,6 +15,10 @@
         {
           "name": "Users",
           "description": "API for users in the system"
+        },
+        {
+          "name": "Todos",
+          "description": "API for todo in the system"
         }
       ],
       "schemes": [
@@ -27,7 +31,7 @@
         "application/json"
       ],
       "paths": {
-        "/register": {
+        "/registeration": {
             "post": {
                 "tags": [
                     "Users"
@@ -55,19 +59,58 @@
                     }
                   }
             }
+        },
+        "/login": {
+          "post": {
+            "tags": [
+               "Users"
+            ],
+            "description": "log in system",
+            "parameters": [
+                {
+                    "name": "user",
+                    "in": "body",
+                    "description": "User we want to login",
+                    "schema": {
+                      "$ref": "#/definitions/Login"
+                    }
+                }
+            ],
+            "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "New user is loged",
+                  "schema": {
+                    "$ref": "#/definitions/CreateUserResponse"
+                  }
+                }
+              }
+        }
         }
       },
       "definitions": {
         "User": {
           "required": [
             "email",
-            "_id"
+            "password"
           ],
           "properties": {
-            "_id": {
+            "email": {
               "type": "string",
               "uniqueItems": true
             },
+            "password": {
+              "type": "string"
+            }
+          }
+        },
+        "Login": {
+          "required": [
+            "email"
+          ],
+          "properties": {
             "email": {
               "type": "string",
               "uniqueItems": true

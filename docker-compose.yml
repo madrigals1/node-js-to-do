@@ -7,10 +7,16 @@ services:
   restart: unless-stopped
   ports:
     - "${PORT}:${PORT}"
+  environment: 
+    VIRTUAL_HOST: ${VIRTUAL_HOST}
+    VIRTUAL_PORT: ${PORT}
+    LETSENCRYPT_HOST: ${VIRTUAL_HOST}
+    LETSENCRYPT_EMAIL: azhg.sabyrzhan@gmail.com
   depends_on:
     - mongoDataBase
   networks: 
     - megasaab-docker-network
+    - https
  
  mongoDataBase:
   image: 'mongo'
@@ -23,5 +29,8 @@ volumes:
  mongodb_api:
 
 networks: 
+  https:
+    external:
+      name: https_network
   megasaab-docker-network:
     driver: bridge
