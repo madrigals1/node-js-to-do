@@ -35,6 +35,15 @@ class ToDoService {
         
     };
 
+    async editTodos(todo: any): Promise<any> {
+        try {
+          const editedTodo = await ToDoModel.findByIdAndUpdate(todo._id, todo);
+          return todo;
+        } catch(error) {
+            throw ApiError.BadRequest('Error when edit todo');
+        }
+    }
+
     // get todo from database
     async getToDos(): Promise<any> {
         try {

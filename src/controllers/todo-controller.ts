@@ -40,6 +40,16 @@ class ToDoController {
         }
     }
 
+    async editToById(req: Request | any, response: Response, next: NextFunction): Promise<any> {
+        const todo = req.body;
+        try {
+            const result = toDoSerivce.editTodos(todo);
+            return response.json(todo);
+        } catch (error) {
+            next(error)
+        }
+    }
+
 
 };
 
