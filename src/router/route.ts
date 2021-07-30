@@ -14,7 +14,7 @@ userController.registration);
 //user
 router.post('/login', userController.login);
 router.post('/logout', userController.logout);
-router.get('/refresh', userController.refresh);
+router.post('/refresh', userController.refresh);
 router.get('/users',authMiddleWare, userController.getUsers);
 
 //toDoList

@@ -33,7 +33,12 @@ class UserController {
 
     async logout(req: Request, response: Response, next: NextFunction) {
         try {
-            const {refreshToken} = req.cookies;
+            let refreshToken;
+            if (req.cookies.refreshToken) {
+               refreshToken = req.cookies.refreshToken;
+            } else {
+                refreshToken = req.body.refreshToken;
+            }
             const token = await userService.logout(refreshToken);
             response.clearCookie('refreshToken');
         } catch (error) {
@@ -42,8 +47,12 @@ class UserController {
     }
     async refresh(req: Request, response: Response, next: NextFunction) {
         try {
-            console.log(req)
-            const {refreshToken} = req.cookies
+            let refreshToken;
+            if (req.cookies.refreshToken) {
+               refreshToken = req.cookies.refreshToken;
+            } else {
+                refreshToken = req.body.refreshToken;
+            }
             const userData = await userService.refresh(refreshToken);
             response.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
             return response.json(userData);
