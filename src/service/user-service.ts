@@ -53,7 +53,8 @@ class UserService {
    async returnData(user: any): Promise<any> {
         const userDto = {
             email: user.email,
-            id: user._id
+            id: user._id,
+            todos: user.todos
         };
         const tokens = await tokenService.generateTokens({...userDto});
 

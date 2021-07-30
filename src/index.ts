@@ -22,7 +22,7 @@ mongoose.connect('mongodb://mongoDataBase:27017/toDoList', {
 
 const app: Express = express();
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN_URL ||  'http://localhost:3000',
+  origin: [process.env.CORS_ORIGIN_URL || 'http://localhost:4200' , 'http://localhost:3000'],
   credentials: true,
   optionsSuccessStatus: 200 // For legacy browser support
 }
