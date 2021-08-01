@@ -46,7 +46,7 @@ class ToDoController {
     async editToById(req: Request | any, response: Response, next: NextFunction): Promise<any> {
         const todo = req.body;
         try {
-            const result = toDoSerivce.editTodos(todo);
+            const result = await toDoSerivce.editTodos(req.user.id, todo);
             return response.json(result);
         } catch (error) {
             next(error)

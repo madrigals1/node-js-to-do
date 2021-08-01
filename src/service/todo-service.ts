@@ -44,10 +44,21 @@ class ToDoService {
 
     };
 
-    async editTodos(todo: any): Promise<any> {
+    async editTodos(userId: any, todo: any): Promise<any> {
         try {
-            const editedTodo = await ToDoModel.findByIdAndUpdate(todo._id, todo);
-            return editedTodo;
+           const user = await userModel.findByIdAndUpdate(
+                userId,
+                {
+                    $set: {
+                        todos: { name: todo.name }
+                    }
+                },
+                {
+                    new: true,
+                }
+            );
+
+            return user;
         } catch (error) {
             throw ApiError.BadRequest('Error when edit todo');
         }

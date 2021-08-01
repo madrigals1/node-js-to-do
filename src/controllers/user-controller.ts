@@ -11,9 +11,9 @@ class UserController {
             if (!errors.isEmpty()) {
                 return next(ApiError.BadRequest('Validation error', errors.array()));
             };
-            const {email, password} = req.body;
+            const { email, password } = req.body;
             const userData = await userService.registration(email, password);
-            response.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true});
+            response.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true });
             return response.json(userData);
         } catch (error) {
             next(error);
@@ -22,9 +22,9 @@ class UserController {
 
     async login(req: Request, response: Response, next: NextFunction) {
         try {
-            const {email, password} = req.body;
-            const userData = await userService.login(email ,password)
-            response.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true});
+            const { email, password } = req.body;
+            const userData = await userService.login(email, password)
+            response.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true });
             return response.json(userData);
         } catch (error) {
             next(error)
@@ -35,7 +35,7 @@ class UserController {
         try {
             let refreshToken;
             if (req.cookies.refreshToken) {
-               refreshToken = req.cookies.refreshToken;
+                refreshToken = req.cookies.refreshToken;
             } else {
                 refreshToken = req.body.refreshToken;
             }
@@ -49,12 +49,12 @@ class UserController {
         try {
             let refreshToken;
             if (req.cookies.refreshToken) {
-               refreshToken = req.cookies.refreshToken;
+                refreshToken = req.cookies.refreshToken;
             } else {
                 refreshToken = req.body.refreshToken;
             }
             const userData = await userService.refresh(refreshToken);
-            response.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true});
+            response.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true });
             return response.json(userData);
         } catch (error) {
             next(error);
@@ -63,8 +63,16 @@ class UserController {
 
     async getUsers(req: Request, response: Response, next: NextFunction) {
         try {
-           const users: any = await userModel.find();
-           return response.json(users)
+            const users: any = await userModel.find();
+            const result: any = users.map((item: any) => {
+                return {
+                    _id: item._id,
+                    email: item.email,
+                    todos: item.todos,
+                    __v: item.__v
+                }
+            })
+            return response.json(result);
         } catch (error) {
             next(error);
         }
