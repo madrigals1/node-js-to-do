@@ -25,21 +25,30 @@ class ToDoService {
         }
     }
 
-    async deleteTodos(toDoId: any) {
+    async deleteTodos(todoId: any, userId: any) {
         try {
-            await ToDoModel.findByIdAndDelete(toDoId);
-        } catch(error) {
+            await userModel.findByIdAndUpdate(
+                userId,
+                {
+                    $pull: {
+                        todos: { _id: todoId }
+                    }
+                }
+            );
+            const user = await userModel.findById(userId);
+            return user;
+        } catch (error) {
             throw ApiError.BadRequest('Error when deleted todo')
         }
-       
-        
+
+
     };
 
     async editTodos(todo: any): Promise<any> {
         try {
-          const editedTodo = await ToDoModel.findByIdAndUpdate(todo._id, todo);
-          return todo;
-        } catch(error) {
+            const editedTodo = await ToDoModel.findByIdAndUpdate(todo._id, todo);
+            return todo;
+        } catch (error) {
             throw ApiError.BadRequest('Error when edit todo');
         }
     }
@@ -52,7 +61,7 @@ class ToDoService {
         } catch (error) {
             throw ApiError.BadRequest('erro when get todo list');
         }
-    
+
     }
 
 };

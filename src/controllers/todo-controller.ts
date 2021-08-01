@@ -33,8 +33,8 @@ class ToDoController {
     async deleteToDoById(req: Request | any, response: Response, next: NextFunction): Promise<any> {
         const todo = req.body;
         try {
-            await toDoSerivce.deleteTodos(todo._id);
-            response.send(200);
+            const res = await toDoSerivce.deleteTodos(todo._id, req.user.id);
+            return response.json(res);
         } catch (error) {
             next(error);
         }

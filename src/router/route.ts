@@ -15,10 +15,10 @@ userController.registration);
 router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.post('/refresh', userController.refresh);
-router.get('/users',authMiddleWare, userController.getUsers);
+router.get('/users', userController.getUsers);
 
 //toDoList
 router.post('/create-todo', authMiddleWare, toDotController.updateUserWithTodos);
-router.get('/to-do-list', toDotController.getToDo);
+router.get('/to-do-list', authMiddleWare, toDotController.getToDo);
 router.post('/delete-todo',authMiddleWare,toDotController.deleteToDoById);
-router.post('/edit-todo',toDotController.editToById);
+router.post('/edit-todo' ,authMiddleWare, toDotController.editToById);
