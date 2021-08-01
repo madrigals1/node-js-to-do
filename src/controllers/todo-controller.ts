@@ -47,7 +47,7 @@ class ToDoController {
         const todo = req.body;
         try {
             const result = toDoSerivce.editTodos(todo);
-            return response.json(todo);
+            return response.json(result);
         } catch (error) {
             next(error)
         }
