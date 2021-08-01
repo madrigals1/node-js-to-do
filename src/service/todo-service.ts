@@ -25,7 +25,7 @@ class ToDoService {
         }
     }
 
-    async deleteTodos(todoId: any, userId: any) {
+    async deleteTodos(todoId: any, userId: any): Promise<UserModel | null> {
         try {
             await userModel.findByIdAndUpdate(
                 userId,
