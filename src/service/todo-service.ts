@@ -44,13 +44,16 @@ class ToDoService {
 
     };
 
-    async editTodos(userId: any, todo: any): Promise<any> {
+    async editTodos(userId: any, todo: any, todos: any): Promise<any> {
+        const todoList = todos.filter((item: any) => item._id !== todo._id);
+        const newTodo = [todo,...todoList];
+        console.log(newTodo)
         try {
            const user = await userModel.findByIdAndUpdate(
                 userId,
                 {
                     $set: {
-                        todos: { name: todo.name }
+                        todos: newTodo 
                     }
                 },
                 {
