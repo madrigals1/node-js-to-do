@@ -1,18 +1,19 @@
 export class ApiError extends Error {
-    status: any;
-    errors: any;
+  status: any;
 
-    constructor(status: number, message: string, errors = []) {
-        super(message);
-        this.status = status;
-        this.errors = errors;
-    };
+  errors: any;
 
-    static UnauthorizedError(): any {
-        return new (ApiError as any)(404, 'User not authorized')
-    };
+  constructor(status: number, message: string, errors = []) {
+    super(message);
+    this.status = status;
+    this.errors = errors;
+  }
 
-    static BadRequest(message: string, errors?: any[]): any {
-        return new (ApiError as any)(400, message, errors);
-    };
-};
+  static UnauthorizedError(): any {
+    return new (ApiError as any)(404, 'User not authorized');
+  }
+
+  static BadRequest(message: string, errors?: any[]): any {
+    return new (ApiError as any)(400, message, errors);
+  }
+}

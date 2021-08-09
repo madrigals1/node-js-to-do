@@ -1,24 +1,25 @@
 import { Router } from 'express';
-import { userController } from '../controllers/user-controller';
-import {body} from 'express-validator';
+import { body } from 'express-validator';
+
+import { UserController } from '../controllers/user-controller';
 import { authMiddleWare } from '../middlewares/auth-middleware';
-import { toDotController } from '../controllers/todo-controller';
+import { ToDoController } from '../controllers/todo-controller';
 
 export const router = Router();
 
 router.post('/registration',
-body('email').isEmail(),
-body('password').isLength({min: 3, max: 32}),
-userController.registration);
+  body('email').isEmail(),
+  body('password').isLength({ min: 3, max: 32 }),
+  UserController.registration);
 
-//user
-router.post('/login', userController.login);
-router.post('/logout', userController.logout);
-router.post('/refresh', userController.refresh);
-router.get('/users', userController.getUsers);
+// user
+router.post('/login', UserController.login);
+router.post('/logout', UserController.logout);
+router.post('/refresh', UserController.refresh);
+router.get('/users', UserController.getUsers);
 
-//toDoList
-router.post('/create-todo', authMiddleWare, toDotController.updateUserWithTodos);
-router.get('/to-do-list', authMiddleWare, toDotController.getToDo);
-router.post('/delete-todo',authMiddleWare,toDotController.deleteToDoById);
-router.post('/edit-todo' ,authMiddleWare, toDotController.editToById);
+// toDoList
+router.post('/create-todo', authMiddleWare, ToDoController.updateUserWithTodos);
+router.get('/to-do-list', authMiddleWare, ToDoController.getToDo);
+router.post('/delete-todo', authMiddleWare, ToDoController.deleteToDoById);
+router.post('/edit-todo', authMiddleWare, ToDoController.editToById);
