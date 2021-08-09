@@ -12,8 +12,9 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 
 const PORT: number = Number(process.env.PORT);
+const MONGO_DB_URL: string = String(process.env.MONGO_DB_URL);
 
-mongoose.connect('mongodb://mongoDataBase:27017/toDoList', {
+mongoose.connect(MONGO_DB_URL, {
   useUnifiedTopology: true,
   useNewUrlParser: true
 })
