@@ -1,11 +1,20 @@
-import { NextFunction, Request, Response } from "express";
-import { ApiError } from "../exceptions/api-error";
+import { Request, Response } from 'express';
 
-export function middlewarePrepareException(err: ApiError, req: Request,res: Response,next: NextFunction) {
-    console.log(err);
-    if (err) {
-        return res.status(err.status).json({message: err.message, errors: err.errors});
-    };
+import { ApiError } from '../exceptions/api-error';
 
-    return res.status(500).json({message: 'Undefined Error'});
-};
+export function middlewarePrepareException(
+  err: ApiError,
+  req: Request,
+  res: Response,
+): Response {
+  // eslint-disable-next-line no-console
+  console.log(err);
+
+  if (err) {
+    return res
+      .status(err.status)
+      .json({ message: err.message, errors: err.errors });
+  }
+
+  return res.status(500).json({ message: 'Undefined Error' });
+}
