@@ -23,3 +23,4 @@ router.post('/create-todo', authMiddleWare, ToDoController.updateUserWithTodos);
 router.get('/to-do-list', authMiddleWare, ToDoController.getToDo);
 router.post('/delete-todo', authMiddleWare, ToDoController.deleteToDoById);
 router.post('/edit-todo', authMiddleWare, ToDoController.editToById);
+router.post('/get-todo-by-date', authMiddleWare, ToDoController.getTodoByDate)

@@ -22,6 +22,7 @@
         "ecmaVersion": 11
     },
     "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": "off",
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
         "no-console": 2,
         "import/order": ["error", {"newlines-between": "always"}],

@@ -65,4 +65,19 @@ export class ToDoController {
       return next(error);
     }
   }
+
+  static async getTodoByDate(
+    req: Request | any,
+    response: Response,
+    next: NextFunction,
+  ): Promise<any> {
+    const userId = req.user.id;
+    const { date } = req.body;
+    try {
+      const result = await ToDoService.getToDoByDate(userId, date);
+      return response.json(result);
+    } catch (error) {
+      return next(error);
+    }
+  }
 }

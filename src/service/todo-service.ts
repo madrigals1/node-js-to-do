@@ -72,6 +72,22 @@ export class ToDoService {
     }
   }
 
+  static async getToDoByDate(userId: any, date: string): Promise<any> {
+    function convertDate(isoDate: string) {
+      return new Date(isoDate).toISOString().substring(0, 10);
+    }
+    try {
+      const user: any = await userModel.findById(userId);
+      const newTodos = [...user.todos]
+        .filter((todos) => convertDate(todos.created_at) === date);
+
+      user.todos = newTodos;
+      return user;
+    } catch (error) {
+      throw ApiError.BadRequest('Error when find todo by date');
+    }
+  }
+
   // get todo from database
   static async getToDos(): Promise<any> {
     try {
